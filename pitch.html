@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dejunk — India's Circular Fashion Revolution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #ffffff;
+            --bg-card: #f8f9fa;
+            --bg-card-2: #f1f3f5;
+            --text: #1a1a1a;
+            --text-dim: #495057;
+            --text-muted: #868e96;
+            --accent: #84cc16;
+            --accent-2: #22c55e;
+            --accent-glow: rgba(132, 204, 22, 0.15);
+            --orange: #fb923c;
+            --pink: #f472b6;
+            --blue: #60a5fa;
+            --purple: #a78bfa;
+            --yellow: #fbbf24;
+            --border: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            font-size: 15px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 60px 0 40px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(132, 204, 22, 0.1);
+            border: 1px solid rgba(132, 204, 22, 0.3);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.3); }
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 7vw, 84px);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-style: italic;
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--text-dim);
+            max-width: 700px;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .hero-subtitle strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 40px;
+        }
+
+        .hero-tag {
+            padding: 6px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--text-dim);
+            transition: all 0.2s;
+        }
+
+        .hero-tag:hover {
+            background: var(--bg-card-2);
+            color: var(--text);
+            border-color: var(--accent);
+        }
+
+        /* Bento Grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 180px;
+            gap: 16px;
+            margin-bottom: 80px;
+        }
+
+        .bento-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 28px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .bento-card .card-emoji {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .bento-card .card-number {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
+        }
+
+        .bento-card .card-label {
+            font-size: 14px;
+            color: var(--text-dim);
+            font-weight: 500;
+        }
+
+        /* Bento variants */
+        .bento-large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .bento-wide {
+            grid-column: span 2;
+        }
+
+        .bento-tall {
+            grid-row: span 2;
+        }
+
+        .bento-feature {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            color: #ffffff;
+        }
+
+        .bento-feature .card-label {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .bento-orange {
+            background: linear-gradient(135deg, #fb923c 0%, #f472b6 100%);
+            color: white;
+        }
+
+        .bento-purple {
+            background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 100%);
+            color: white;
+        }
+
+        .bento-yellow {
+            background: linear-gradient(135deg, #fbbf24 0%, #fb923c 100%);
+            color: #0a0a0a;
+        }
+
+        .bento-card .award-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .bento-card .award-title {
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .bento-card .award-org {
+            font-size: 14px;
+            opacity: 0.8;
+            font-weight: 500;
+        }
+
+        .bento-card .badge-trophy {
+            font-size: 80px;
+            position: absolute;
+            right: -20px;
+            bottom: -20px;
+            opacity: 0.15;
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin: 80px 0 40px;
+        }
+
+        .section-eyebrow {
+            display: inline-block;
+            padding: 6px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+        }
+
+        .section-title .accent {
+            font-style: italic;
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400;
+            color: var(--accent);
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: var(--text-dim);
+            max-width: 700px;
+        }
+
+        /* Project Card */
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 48px;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 16px;
+            position: relative;
+        }
+
+        .project-title-group h3 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .project-tagline {
+            color: var(--text-dim);
+            font-size: 16px;
+        }
+
+        .project-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(132, 204, 22, 0.1);
+            border: 1px solid rgba(132, 204, 22, 0.3);
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .project-description {
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--text-dim);
+            margin-bottom: 32px;
+            max-width: 850px;
+        }
+
+        /* Image Placeholder */
+        .image-slot {
+            background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+            border: 2px dashed rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 60px 30px;
+            text-align: center;
+            margin: 32px 0;
+            position: relative;
+        }
+
+        .image-slot .placeholder-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .image-slot .placeholder-text {
+            color: var(--text-dim);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .image-slot .placeholder-text strong {
+            color: var(--text);
+            display: block;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+
+        /* Process Flow */
+        .process-flow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 32px 0;
+        }
+
+        .process-step {
+            background: var(--bg-card-2);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px 20px;
+            text-align: left;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .process-step:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .process-step .step-num {
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .process-step .step-icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .process-step h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .process-step p {
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        /* Two Column Grid */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .info-card {
+            background: var(--bg-card-2);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+        }
+
+        .info-card.challenge {
+            border-color: rgba(244, 114, 182, 0.2);
+        }
+
+        .info-card.solution {
+            border-color: rgba(132, 204, 22, 0.2);
+        }
+
+        .info-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card.challenge h4 {
+            color: var(--pink);
+        }
+
+        .info-card.solution h4 {
+            color: var(--accent);
+        }
+
+        .info-card p {
+            color: var(--text-dim);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-card li {
+            padding: 8px 0 8px 24px;
+            position: relative;
+            font-size: 14px;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        .info-card.challenge li::before {
+            content: "✕";
+            position: absolute;
+            left: 0;
+            color: var(--pink);
+            font-weight: bold;
+        }
+
+        .info-card.solution li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Charts */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .chart-card {
+            background: var(--bg-card-2);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+        }
+
+        .chart-card h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 260px;
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .metric-card {
+            background: var(--bg-card-2);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            transition: all 0.3s;
+        }
+
+        .metric-card:hover {
+            border-color: rgba(132, 204, 22, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .metric-card h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metric-card ul {
+            list-style: none;
+        }
+
+        .metric-card li {
+            padding: 10px 0 10px 24px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            color: var(--text-dim);
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .metric-card li:last-child {
+            border-bottom: none;
+        }
+
+        .metric-card li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .metric-card .highlight {
+            color: var(--text);
+            font-weight: 700;
+            background: rgba(132, 204, 22, 0.15);
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        /* ESG Badge Grid */
+        .esg-section {
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.1) 0%, rgba(167, 139, 250, 0.1) 100%);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            border-radius: 24px;
+            padding: 36px;
+            margin: 32px 0;
+        }
+
+        .esg-section h4 {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .esg-section .esg-subtitle {
+            color: var(--text-dim);
+            margin-bottom: 24px;
+            font-size: 15px;
+        }
+
+        .esg-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .esg-badge {
+            padding: 10px 18px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .esg-badge:hover {
+            background: rgba(132, 204, 22, 0.15);
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Skills Section */
+        .skills-bento {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .skills-chart-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+        }
+
+        .skills-chart-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .skill-categories {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .skill-cat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.3s;
+        }
+
+        .skill-cat-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+
+        .skill-cat-card .icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .skill-cat-card h5 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .skill-cat-card p {
+            font-size: 12px;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        /* Skills Tags */
+        .skill-tags-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            margin: 16px 0;
+        }
+
+        .skill-tags-section h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-dim);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            padding: 8px 14px;
+            background: var(--bg-card-2);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--text-dim);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .skill-tag:hover {
+            background: rgba(132, 204, 22, 0.1);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Certifications */
+        .cert-card {
+            background: linear-gradient(135deg, rgba(132, 204, 22, 0.05) 0%, rgba(34, 197, 94, 0.05) 100%);
+            border: 1px solid rgba(132, 204, 22, 0.2);
+            border-radius: 24px;
+            padding: 32px;
+            margin-top: 16px;
+        }
+
+        .cert-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .cert-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: var(--bg-card-2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 14px;
+        }
+
+        .cert-item::before {
+            content: "✓";
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .cert-item.in-progress {
+            opacity: 0.7;
+        }
+
+        .cert-item.in-progress::before {
+            content: "○";
+            color: var(--yellow);
+        }
+
+        .cert-status {
+            margin-left: auto;
+            font-size: 11px;
+            padding: 3px 10px;
+            background: rgba(251, 191, 36, 0.15);
+            color: var(--yellow);
+            border-radius: 100px;
+            font-weight: 600;
+        }
+
+        /* Awards Hero */
+        .awards-hero {
+            background: linear-gradient(135deg, var(--yellow) 0%, var(--orange) 100%);
+            border-radius: 32px;
+            padding: 48px;
+            margin-bottom: 16px;
+            color: #0a0a0a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .awards-hero::before {
+            content: "🏆";
+            position: absolute;
+            right: -40px;
+            top: -40px;
+            font-size: 280px;
+            opacity: 0.15;
+        }
+
+        .awards-hero .award-eyebrow {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(0,0,0,0.15);
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+
+        .awards-hero h3 {
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            max-width: 700px;
+        }
+
+        .awards-hero .award-org {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .awards-hero p {
+            font-size: 15px;
+            line-height: 1.7;
+            opacity: 0.9;
+            max-width: 700px;
+        }
+
+        .awards-secondary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .award-mini {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            transition: all 0.3s;
+        }
+
+        .award-mini:hover {
+            transform: translateY(-3px);
+            border-color: var(--yellow);
+        }
+
+        .award-mini .icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .award-mini h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .award-mini .org {
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .award-mini p {
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer-cta {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 60px 48px;
+            text-align: center;
+            margin-top: 80px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-cta::before {
+            content: "";
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .footer-cta h3 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .footer-cta h3 .accent {
+            font-style: italic;
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400;
+            color: var(--accent);
+        }
+
+        .footer-cta > p {
+            font-size: 18px;
+            color: var(--text-dim);
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .contact-card {
+            background: var(--bg-card-2);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 16px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s;
+            display: block;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            background: rgba(132, 204, 22, 0.05);
+        }
+
+        .contact-card .icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .contact-card .label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .contact-card .value {
+            font-size: 13px;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            .container {
+                max-width: 100%;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-auto-rows: 160px;
+            }
+            .bento-large, .bento-wide, .bento-tall {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+            .two-col, .charts-grid, .metrics-grid, .skills-bento, .skill-categories, .cert-grid, .awards-secondary {
+                grid-template-columns: 1fr;
+            }
+            .process-flow {
+                grid-template-columns: 1fr 1fr;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .project-card, .footer-cta {
+                padding: 32px 24px;
+            }
+            .awards-hero {
+                padding: 32px 24px;
+            }
+            .awards-hero h3 {
+                font-size: 28px;
+            }
+            .footer-cta h3 {
+                font-size: 36px;
+            }
+            .hero h1 {
+                font-size: 48px;
+            }
+        }
+
+        /* Export Button */
+        .export-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 4px 20px rgba(132, 204, 22, 0.4);
+            z-index: 1000;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(132, 204, 22, 0.6);
+        }
+
+        @media print {
+            .export-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <!-- Abstract Background Pattern -->
+            <div style="position: absolute; top: 0; right: 0; width: 500px; height: 500px; opacity: 0.08; pointer-events: none; z-index: 0;">
+                <svg viewBox="0 0 500 500" style="width: 100%; height: 100%;">
+                    <circle cx="250" cy="250" r="200" fill="none" stroke="#84cc16" stroke-width="2" opacity="0.3"/>
+                    <circle cx="250" cy="250" r="150" fill="none" stroke="#84cc16" stroke-width="2" opacity="0.4"/>
+                    <circle cx="250" cy="250" r="100" fill="none" stroke="#84cc16" stroke-width="3" opacity="0.5"/>
+                    <path d="M 250,50 L 250,450" stroke="#84cc16" stroke-width="1" opacity="0.3"/>
+                    <path d="M 50,250 L 450,250" stroke="#84cc16" stroke-width="1" opacity="0.3"/>
+                    <path d="M 100,100 L 400,400" stroke="#84cc16" stroke-width="1" opacity="0.2"/>
+                    <path d="M 100,400 L 400,100" stroke="#84cc16" stroke-width="1" opacity="0.2"/>
+                    
+                    <!-- Circular economy symbols -->
+                    <g transform="translate(250, 120)">
+                        <path d="M 0,-20 Q 30,-20 30,0 T 0,20 T -30,0 T 0,-20" fill="none" stroke="#84cc16" stroke-width="2" opacity="0.6"/>
+                        <circle cx="0" cy="0" r="5" fill="#84cc16" opacity="0.8"/>
+                    </g>
+                    <g transform="translate(180, 250)">
+                        <path d="M 0,-20 Q 30,-20 30,0 T 0,20 T -30,0 T 0,-20" fill="none" stroke="#22c55e" stroke-width="2" opacity="0.6"/>
+                        <circle cx="0" cy="0" r="5" fill="#22c55e" opacity="0.8"/>
+                    </g>
+                    <g transform="translate(320, 250)">
+                        <path d="M 0,-20 Q 30,-20 30,0 T 0,20 T -30,0 T 0,-20" fill="none" stroke="#22c55e" stroke-width="2" opacity="0.6"/>
+                        <circle cx="0" cy="0" r="5" fill="#22c55e" opacity="0.8"/>
+                    </g>
+                    <g transform="translate(250, 380)">
+                        <path d="M 0,-20 Q 30,-20 30,0 T 0,20 T -30,0 T 0,-20" fill="none" stroke="#84cc16" stroke-width="2" opacity="0.6"/>
+                        <circle cx="0" cy="0" r="5" fill="#84cc16" opacity="0.8"/>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                Building India's circular textile economy
+            </div>
+
+            <h1>
+                India's <span class="gradient-text">circular fashion</span><br>
+                revolution—powered<br>
+                by zero waste.
+            </h1>
+
+            <p class="hero-subtitle">
+                <strong>Our Vision:</strong> Create sustainable ways to reduce and repurpose fashion and textile waste while making a technology-driven positive social, economic, and environmental impact.<br><br>
+                <strong>Our Mission:</strong> Transform waste into affordable sustainable fashion through a data-driven approach, driving paradigm change towards a more circular and environmentally friendly living.
+            </p>
+
+            <div class="hero-tags">
+                <div class="hero-tag">♻️ Circular Economy</div>
+                <div class="hero-tag">💧 Zero Water</div>
+                <div class="hero-tag">🧪 Chemical-Free</div>
+                <div class="hero-tag">📍 Delhi, India</div>
+                <div class="hero-tag">🏆 National Award Winner</div>
+            </div>
+        </section>
+
+        <!-- Bento Grid Stats -->
+        <section class="bento-grid">
+            <!-- Large Award Card -->
+            <div class="bento-card bento-large bento-feature">
+                <div class="award-content">
+                    <div>
+                        <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7; margin-bottom: 12px;">🏆 National Award</div>
+                        <div class="award-title">Textile Innovation Challenge Winner</div>
+                        <div class="award-org">Ministry of Textiles, Government of India</div>
+                    </div>
+                    <div style="font-size: 13px; font-weight: 600; opacity: 0.8;">For waterless, zero-waste upcycling model →</div>
+                </div>
+                <div class="badge-trophy">🏆</div>
+            </div>
+
+            <!-- Stat 1 - Combined -->
+            <div class="bento-card" style="background: #ffffff; border: 2px solid rgba(132, 204, 22, 0.3);">
+                <div class="card-emoji">♻️</div>
+                <div class="card-number" style="color: #84cc16;">100%</div>
+                <div class="card-label" style="color: #1a1a1a;">circular upcycling model</div>
+                <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(132, 204, 22, 0.2);">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="card-emoji" style="font-size: 20px; margin: 0;">🤝</div>
+                        <div>
+                            <div style="font-size: 32px; font-weight: 800; color: #84cc16; line-height: 1;">3</div>
+                            <div style="font-size: 12px; color: #1a1a1a; font-weight: 600; margin-top: 4px;">revenue streams ready</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stat 2 -->
+            <div class="bento-card bento-purple">
+                <div class="card-emoji">💧</div>
+                <div class="card-number" style="color: #ffffff;">Zero</div>
+                <div class="card-label" style="color: #1a1a1a; font-weight: 600;">water used in production</div>
+            </div>
+
+            <!-- Stat 3 - Wide -->
+            <div class="bento-card bento-wide bento-orange">
+                <div class="card-emoji">🌱</div>
+                <div class="card-number" style="color: #ffffff;">Zero</div>
+                <div class="card-label" style="color: #1a1a1a; font-weight: 600;">chemicals or artificial softeners</div>
+            </div>
+        </section>
+
+        <!-- Impact Dashboard Visual -->
+        <section style="margin: 60px 0;">
+            <div style="background: linear-gradient(135deg, rgba(132, 204, 22, 0.05) 0%, rgba(34, 197, 94, 0.05) 100%); border: 1px solid rgba(132, 204, 22, 0.2); border-radius: 32px; padding: 48px; position: relative; overflow: hidden;">
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <h3 style="font-size: 28px; font-weight: 800; margin-bottom: 8px;">Our Impact Model</h3>
+                    <p style="color: var(--text-dim); font-size: 15px;">Measurable environmental benefits through our circular production process</p>
+                </div>
+                
+                <svg viewBox="0 0 1200 300" style="width: 100%; height: auto;">
+                    <!-- Impact Metric 1: Waste -->
+                    <g transform="translate(150, 150)">
+                        <circle cx="0" cy="0" r="80" fill="rgba(132, 204, 22, 0.1)" stroke="#84cc16" stroke-width="3"/>
+                        <text x="0" y="-10" text-anchor="middle" fill="#84cc16" font-size="36" font-weight="800">15K</text>
+                        <text x="0" y="15" text-anchor="middle" fill="#495057" font-size="14">kg diverted</text>
+                        <text x="0" y="120" text-anchor="middle" fill="#000000" font-size="16" font-weight="700">♻️ Waste</text>
+                        <!-- Progress arc -->
+                        <path d="M 0,-80 A 80,80 0 1,1 -56.56,-56.56" fill="none" stroke="#84cc16" stroke-width="6" stroke-linecap="round" opacity="0.3"/>
+                    </g>
+                    
+                    <!-- Impact Metric 2: Water -->
+                    <g transform="translate(400, 150)">
+                        <circle cx="0" cy="0" r="80" fill="rgba(96, 165, 250, 0.1)" stroke="#60a5fa" stroke-width="3"/>
+                        <text x="0" y="-10" text-anchor="middle" fill="#60a5fa" font-size="36" font-weight="800">100K</text>
+                        <text x="0" y="15" text-anchor="middle" fill="#495057" font-size="14">liters saved</text>
+                        <text x="0" y="120" text-anchor="middle" fill="#000000" font-size="16" font-weight="700">💧 Water</text>
+                        <path d="M 0,-80 A 80,80 0 1,1 56.56,-56.56" fill="none" stroke="#60a5fa" stroke-width="6" stroke-linecap="round" opacity="0.3"/>
+                    </g>
+                    
+                    <!-- Impact Metric 3: Energy -->
+                    <g transform="translate(650, 150)">
+                        <circle cx="0" cy="0" r="80" fill="rgba(251, 191, 36, 0.1)" stroke="#fbbf24" stroke-width="3"/>
+                        <text x="0" y="-10" text-anchor="middle" fill="#fbbf24" font-size="36" font-weight="800">60%</text>
+                        <text x="0" y="15" text-anchor="middle" fill="#495057" font-size="14">reduction</text>
+                        <text x="0" y="120" text-anchor="middle" fill="#000000" font-size="16" font-weight="700">⚡ Energy</text>
+                        <path d="M 0,-80 A 80,80 0 0,1 69.28,40" fill="none" stroke="#fbbf24" stroke-width="6" stroke-linecap="round" opacity="0.3"/>
+                    </g>
+                    
+                    <!-- Impact Metric 4: Chemicals -->
+                    <g transform="translate(900, 150)">
+                        <circle cx="0" cy="0" r="80" fill="rgba(244, 114, 182, 0.1)" stroke="#f472b6" stroke-width="3"/>
+                        <text x="0" y="-10" text-anchor="middle" fill="#f472b6" font-size="36" font-weight="800">0%</text>
+                        <text x="0" y="15" text-anchor="middle" fill="#495057" font-size="14">used</text>
+                        <text x="0" y="120" text-anchor="middle" fill="#000000" font-size="16" font-weight="700">🧪 Chemicals</text>
+                        <path d="M 0,-80 A 80,80 0 1,1 0,80" fill="none" stroke="#f472b6" stroke-width="6" stroke-linecap="round" opacity="0.3"/>
+                    </g>
+                    
+                    <!-- Impact Metric 5: CO2 -->
+                    <g transform="translate(1050, 150)">
+                        <circle cx="0" cy="0" r="60" fill="rgba(167, 139, 250, 0.1)" stroke="#a78bfa" stroke-width="2"/>
+                        <text x="0" y="-5" text-anchor="middle" fill="#a78bfa" font-size="28" font-weight="800">~20t</text>
+                        <text x="0" y="12" text-anchor="middle" fill="#495057" font-size="12">CO₂ avoided</text>
+                        <text x="0" y="100" text-anchor="middle" fill="#000000" font-size="14" font-weight="700">🌍 Carbon</text>
+                    </g>
+                    
+                    <!-- Connecting line -->
+                    <path d="M 230,150 L 1000,150" stroke="rgba(132, 204, 22, 0.15)" stroke-width="2" stroke-dasharray="8,4"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Featured Project -->
+        <div class="section-header">
+            <span class="section-eyebrow">Featured Work</span>
+            <h2 class="section-title">
+                The <span class="accent">Dejunk</span> story.
+            </h2>
+            <p class="section-description">
+                How we built India's first waterless textile upcycling venture from zero — and got the government to take notice.
+            </p>
+        </div>
+
+        <div class="project-card">
+            <div class="project-header">
+                <div class="project-title-group">
+                    <h3>Dejunk: Circular Fashion at Scale</h3>
+                    <div class="project-tagline">Zero water. Zero chemicals. 100% upcycled.</div>
+                </div>
+                <div class="project-status">
+                    <span class="status-dot"></span>
+                    Production Ready
+                </div>
+            </div>
+
+            <p class="project-description">
+                Textile waste, particularly leftover threads from manufacturing, is a hidden yet significant contributor to the fashion industry's environmental crisis. This pre-production waste accumulates in staggering quantities annually—most ending up in landfills where they emit harmful gases for centuries, or are incinerated, worsening air quality. The UN estimates that a single pair of jeans requires 7,500–10,000 liters of water. One garbage truck full of clothes is burned or dumped every second. On average, 35% of all materials in the supply chain end up as waste before reaching the consumer.
+            </p>
+            
+            <p class="project-description" style="margin-top: 1.5rem;">
+                <strong>Our Solution:</strong> At Dejunk, we upcycle these leftovers—commonly referred to as waste—from fashion and textile industries to create meaningful products. All our products are handwoven without the use of any chemicals, artificial softeners, or even water. Our innovative processes transform waste into beautiful, handwoven products, promoting a circular model that minimizes the fashion industry's environmental footprint while directly supporting employment generation.
+            </p>
+
+            <!-- Circular Flow Visualization -->
+            <div style="background: linear-gradient(135deg, #f1f3f5 0%, #e9f5e9 100%); border-radius: 24px; padding: 40px; margin: 32px 0; position: relative; overflow: hidden; border: 1px solid rgba(132, 204, 22, 0.2);">
+                <svg viewBox="0 0 800 400" style="width: 100%; height: auto;">
+                    <!-- Background circles -->
+                    <circle cx="200" cy="200" r="150" fill="rgba(132, 204, 22, 0.05)" />
+                    <circle cx="600" cy="200" r="150" fill="rgba(132, 204, 22, 0.05)" />
+                    
+                    <!-- Textile waste pile (left) -->
+                    <g transform="translate(200, 200)">
+                        <rect x="-60" y="-40" width="30" height="80" fill="#adb5bd" rx="4" transform="rotate(-10)" opacity="0.7"/>
+                        <rect x="-30" y="-50" width="30" height="80" fill="#ced4da" rx="4" transform="rotate(5)" opacity="0.7"/>
+                        <rect x="0" y="-45" width="30" height="80" fill="#868e96" rx="4" transform="rotate(-5)" opacity="0.7"/>
+                        <rect x="30" y="-40" width="30" height="80" fill="#adb5bd" rx="4" transform="rotate(10)" opacity="0.7"/>
+                        <text x="0" y="70" text-anchor="middle" fill="#f472b6" font-size="14" font-weight="700">TEXTILE WASTE</text>
+                        <text x="0" y="88" text-anchor="middle" fill="#495057" font-size="12">15,000+ kg/year</text>
+                    </g>
+                    
+                    <!-- Arrow with process labels -->
+                    <g>
+                        <path d="M 350 200 L 450 200" stroke="#84cc16" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+                        <text x="400" y="180" text-anchor="middle" fill="#84cc16" font-size="13" font-weight="700">WATERLESS UPCYCLING</text>
+                        <text x="400" y="195" text-anchor="middle" fill="#84cc16" font-size="11">Zero chemicals • Zero water</text>
+                    </g>
+                    
+                    <!-- Sustainable products (right) -->
+                    <g transform="translate(600, 200)">
+                        <!-- Product boxes -->
+                        <rect x="-50" y="-50" width="30" height="30" fill="#84cc16" rx="4" opacity="0.9"/>
+                        <rect x="-10" y="-50" width="30" height="30" fill="#22c55e" rx="4" opacity="0.9"/>
+                        <rect x="20" y="-50" width="30" height="30" fill="#84cc16" rx="4" opacity="0.9"/>
+                        
+                        <rect x="-50" y="-10" width="30" height="30" fill="#22c55e" rx="4" opacity="0.9"/>
+                        <rect x="-10" y="-10" width="30" height="30" fill="#84cc16" rx="4" opacity="0.9"/>
+                        <rect x="20" y="-10" width="30" height="30" fill="#22c55e" rx="4" opacity="0.9"/>
+                        
+                        <rect x="-50" y="30" width="30" height="30" fill="#84cc16" rx="4" opacity="0.9"/>
+                        <rect x="-10" y="30" width="30" height="30" fill="#22c55e" rx="4" opacity="0.9"/>
+                        <rect x="20" y="30" width="30" height="30" fill="#84cc16" rx="4" opacity="0.9"/>
+                        
+                        <text x="0" y="90" text-anchor="middle" fill="#84cc16" font-size="14" font-weight="700">SUSTAINABLE PRODUCTS</text>
+                        <text x="0" y="108" text-anchor="middle" fill="#495057" font-size="12">100% Circular</text>
+                    </g>
+                    
+                    <!-- Circular arrow back -->
+                    <path d="M 600 320 Q 400 380 200 320" stroke="#60a5fa" stroke-width="3" fill="none" stroke-dasharray="8,4" opacity="0.6"/>
+                    <text x="400" y="370" text-anchor="middle" fill="#60a5fa" font-size="12" font-weight="600">REVENUE → REINVESTED IN SCALING</text>
+                    
+                    <!-- Arrow marker definition -->
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#84cc16"/>
+                        </marker>
+                    </defs>
+                    
+                    <!-- Stats badges -->
+                    <g transform="translate(100, 50)">
+                        <rect x="0" y="0" width="140" height="50" fill="rgba(132, 204, 22, 0.15)" rx="8" stroke="#84cc16" stroke-width="1"/>
+                        <text x="70" y="22" text-anchor="middle" fill="#84cc16" font-size="18" font-weight="800">100,000L</text>
+                        <text x="70" y="38" text-anchor="middle" fill="#495057" font-size="11">Water Saved</text>
+                    </g>
+                    
+                    <g transform="translate(560, 50)">
+                        <rect x="0" y="0" width="140" height="50" fill="rgba(251, 146, 60, 0.15)" rx="8" stroke="#fb923c" stroke-width="1"/>
+                        <text x="70" y="22" text-anchor="middle" fill="#fb923c" font-size="18" font-weight="800">0%</text>
+                        <text x="70" y="38" text-anchor="middle" fill="#495057" font-size="11">Chemicals Used</text>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- Process Flow -->
+            <div class="process-flow">
+                <div class="process-step">
+                    <div class="step-num">STEP 01</div>
+                    <div style="margin: 12px 0;">
+                        <svg viewBox="0 0 60 60" style="width: 50px; height: 50px;">
+                            <rect x="10" y="15" width="40" height="35" fill="none" stroke="#84cc16" stroke-width="2" rx="3"/>
+                            <rect x="15" y="20" width="10" height="8" fill="#84cc16" opacity="0.6"/>
+                            <rect x="27" y="20" width="10" height="8" fill="#84cc16" opacity="0.8"/>
+                            <rect x="39" y="20" width="6" height="8" fill="#84cc16" opacity="0.4"/>
+                            <rect x="15" y="31" width="8" height="10" fill="#84cc16" opacity="0.5"/>
+                            <rect x="25" y="31" width="12" height="10" fill="#84cc16" opacity="0.7"/>
+                            <rect x="39" y="31" width="6" height="10" fill="#84cc16" opacity="0.6"/>
+                            <path d="M 20,10 L 30,5 L 40,10" stroke="#84cc16" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <h4>Collect</h4>
+                    <p>Partner with 15+ textile manufacturers for post-production waste pickup</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-num">STEP 02</div>
+                    <div style="margin: 12px 0;">
+                        <svg viewBox="0 0 60 60" style="width: 50px; height: 50px;">
+                            <circle cx="30" cy="30" r="18" fill="none" stroke="#60a5fa" stroke-width="2"/>
+                            <circle cx="30" cy="30" r="12" fill="none" stroke="#60a5fa" stroke-width="2"/>
+                            <circle cx="30" cy="30" r="6" fill="#60a5fa" opacity="0.6"/>
+                            <line x1="30" y1="12" x2="30" y2="48" stroke="#60a5fa" stroke-width="1.5"/>
+                            <line x1="12" y1="30" x2="48" y2="30" stroke="#60a5fa" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                    <h4>Sort</h4>
+                    <p>Categorize materials by quality, fiber type, and upcycling potential</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-num">STEP 03</div>
+                    <div style="margin: 12px 0;">
+                        <svg viewBox="0 0 60 60" style="width: 50px; height: 50px;">
+                            <path d="M 30,15 L 35,25 L 45,25 L 37,32 L 40,42 L 30,35 L 20,42 L 23,32 L 15,25 L 25,25 Z" fill="#fbbf24" opacity="0.8"/>
+                            <circle cx="30" cy="30" r="8" fill="none" stroke="#fbbf24" stroke-width="2" stroke-dasharray="2,2"/>
+                            <path d="M 26,26 L 34,34 M 34,26 L 26,34" stroke="#fbbf24" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h4>Transform</h4>
+                    <p>Upcycle using waterless, chemical-free proprietary process</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-num">STEP 04</div>
+                    <div style="margin: 12px 0;">
+                        <svg viewBox="0 0 60 60" style="width: 50px; height: 50px;">
+                            <circle cx="20" cy="35" r="8" fill="none" stroke="#f472b6" stroke-width="2"/>
+                            <circle cx="40" cy="35" r="8" fill="none" stroke="#f472b6" stroke-width="2"/>
+                            <rect x="15" y="20" width="30" height="12" fill="none" stroke="#f472b6" stroke-width="2" rx="2"/>
+                            <path d="M 30,15 L 35,20 L 25,20 Z" fill="#f472b6" opacity="0.6"/>
+                            <line x1="30" y1="10" x2="30" y2="15" stroke="#f472b6" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h4>Distribute</h4>
+                    <p>Sell sustainable products & close the circular loop</p>
+                </div>
+            </div>
+
+            <!-- Challenge vs Solution -->
+            <div class="two-col">
+                <div class="info-card challenge">
+                    <h4>❌ The Problem</h4>
+                    <p style="margin-bottom: 16px;">India's textile industry has an environmental crisis:</p>
+                    <ul>
+                        <li>Millions of tonnes of waste generated annually</li>
+                        <li>Traditional recycling needs 50,000+ liters water per tonne</li>
+                        <li>Heavy chemical processing damages ecosystems</li>
+                        <li>90% of textile waste ends in landfills</li>
+                        <li>No real circular infrastructure</li>
+                    </ul>
+                </div>
+
+                <div class="info-card solution">
+                    <h4>✅ My Solution</h4>
+                    <p style="margin-bottom: 16px;">A closed-loop model that flips the script:</p>
+                    <ul>
+                        <li>100% post-production waste → new products</li>
+                        <li>Zero water consumption (yes, actually zero)</li>
+                        <li>No chemicals, no artificial softeners</li>
+                        <li>60% less energy vs traditional methods</li>
+                        <li>Reverse logistics with 15+ partners</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h4>📊 Environmental Impact Mix</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="impactChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h4>📈 Waste Diversion Growth</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Before/After Transformation Visual -->
+            <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2a1a0f 100%); border-radius: 24px; padding: 40px; margin: 32px 0;">
+                <h4 style="text-align: center; margin-bottom: 30px; font-size: 18px; color: #fb923c;">TRANSFORMATION PROCESS</h4>
+                <svg viewBox="0 0 1000 300" style="width: 100%; height: auto;">
+                    <!-- Before Section -->
+                    <g>
+                        <text x="200" y="30" text-anchor="middle" fill="#f472b6" font-size="16" font-weight="700">❌ BEFORE</text>
+                        
+                        <!-- Waste pile illustration -->
+                        <g transform="translate(200, 100)">
+                            <!-- Messy textile scraps -->
+                            <path d="M -80,0 Q -70,-20 -50,-15 T -20,-25 T 10,-10 T 40,-20 T 80,0 L 80,60 L -80,60 Z" fill="#555" opacity="0.8"/>
+                            <path d="M -60,10 Q -40,5 -20,15 T 20,10 T 60,20" stroke="#777" stroke-width="3" fill="none" opacity="0.6"/>
+                            <path d="M -70,30 Q -50,25 -30,35 T 10,30 T 50,40" stroke="#666" stroke-width="3" fill="none" opacity="0.6"/>
+                            <path d="M -50,50 Q -30,45 -10,50 T 30,45 T 70,55" stroke="#888" stroke-width="3" fill="none" opacity="0.6"/>
+                            
+                            <!-- Pollution symbols -->
+                            <g transform="translate(-90, 30)">
+                                <circle cx="0" cy="0" r="8" fill="#60a5fa" opacity="0.7"/>
+                                <text x="0" y="5" text-anchor="middle" fill="#0a0a0a" font-size="14">💧</text>
+                            </g>
+                            <g transform="translate(90, 40)">
+                                <circle cx="0" cy="0" r="8" fill="#f472b6" opacity="0.7"/>
+                                <text x="0" y="5" text-anchor="middle" fill="#0a0a0a" font-size="14">🧪</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Labels -->
+                        <text x="200" y="200" text-anchor="middle" fill="#a0a0a0" font-size="13">• Landfill-bound</text>
+                        <text x="200" y="220" text-anchor="middle" fill="#a0a0a0" font-size="13">• Chemical processing</text>
+                        <text x="200" y="240" text-anchor="middle" fill="#a0a0a0" font-size="13">• High water usage</text>
+                        <text x="200" y="260" text-anchor="middle" fill="#a0a0a0" font-size="13">• Environmental damage</text>
+                    </g>
+                    
+                    <!-- Arrow -->
+                    <g transform="translate(500, 130)">
+                        <path d="M -100,0 L 100,0" stroke="#84cc16" stroke-width="4" marker-end="url(#arrowhead2)"/>
+                        <circle cx="0" cy="0" r="30" fill="#0a0a0a" stroke="#84cc16" stroke-width="3"/>
+                        <text x="0" y="-35" text-anchor="middle" fill="#84cc16" font-size="12" font-weight="700">DEJUNK</text>
+                        <text x="0" y="-20" text-anchor="middle" fill="#84cc16" font-size="11">PROCESS</text>
+                        <text x="0" y="8" text-anchor="middle" fill="#84cc16" font-size="22">♻️</text>
+                    </g>
+                    
+                    <!-- After Section -->
+                    <g>
+                        <text x="800" y="30" text-anchor="middle" fill="#84cc16" font-size="16" font-weight="700">✅ AFTER</text>
+                        
+                        <!-- Clean products -->
+                        <g transform="translate(800, 100)">
+                            <!-- Neatly arranged products -->
+                            <rect x="-60" y="0" width="35" height="50" fill="#84cc16" rx="4" opacity="0.9"/>
+                            <rect x="-20" y="0" width="35" height="50" fill="#22c55e" rx="4" opacity="0.9"/>
+                            <rect x="20" y="0" width="35" height="50" fill="#84cc16" rx="4" opacity="0.9"/>
+                            
+                            <!-- Sparkle effects -->
+                            <text x="-70" y="-10" fill="#fbbf24" font-size="20">✨</text>
+                            <text x="60" y="-10" fill="#fbbf24" font-size="20">✨</text>
+                            <text x="-10" y="70" fill="#fbbf24" font-size="20">✨</text>
+                        </g>
+                        
+                        <!-- Labels -->
+                        <text x="800" y="200" text-anchor="middle" fill="#a0a0a0" font-size="13">• Premium products</text>
+                        <text x="800" y="220" text-anchor="middle" fill="#a0a0a0" font-size="13">• Zero water used</text>
+                        <text x="800" y="240" text-anchor="middle" fill="#a0a0a0" font-size="13">• No chemicals</text>
+                        <text x="800" y="260" text-anchor="middle" fill="#a0a0a0" font-size="13">• Circular revenue</text>
+                    </g>
+                    
+                    <defs>
+                        <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#84cc16"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <!-- Detailed Metrics -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h4>🔬 Innovation</h4>
+                    <ul>
+                        <li>Specialized process for upcycling waste threads</li>
+                        <li>Tech-driven supply chain for efficient sourcing</li>
+                        <li>Small-batch handcrafting for quality</li>
+                        <li>Zero water, zero chemicals process</li>
+                    </ul>
+                </div>
+
+                <div class="metric-card">
+                    <h4>💼 Market Position</h4>
+                    <ul>
+                        <li>Community-centric sustainable fashion movement</li>
+                        <li>Transparency in material origins and care</li>
+                        <li>Affordable pricing competing with fast fashion</li>
+                        <li>Quality assurance through rigorous testing</li>
+                    </ul>
+                </div>
+
+                <div class="metric-card">
+                    <h4>🌍 Impact</h4>
+                    <ul>
+                        <li>Direct environmental impact on textile waste</li>
+                        <li>Circular economy model transforming waste</li>
+                        <li>Employment generation and job creation</li>
+                        <li>Tackling overlooked thread waste problem</li>
+                    </ul>
+                </div>
+
+                <div class="metric-card">
+                    <h4>🏭 Infrastructure</h4>
+                    <ul>
+                        <li>Production-ready with mapped manufacturing clusters</li>
+                        <li>Established supplier networks across textile hubs</li>
+                        <li>Scalable operations architecture in place</li>
+                        <li>Strategic partnerships with thread suppliers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Market Opportunity Section -->
+        <div class="section-header">
+            <span class="section-eyebrow">Market Opportunity</span>
+            <h2 class="section-title">
+                Riding the <span class="accent">sustainable fashion</span> wave.
+            </h2>
+        </div>
+
+        <div class="project-card">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 32px;">
+                <div>
+                    <h4 style="margin-bottom: 16px;">📈 Market Growth</h4>
+                    <p style="color: var(--text-dim); margin-bottom: 20px;">Sustainable and circular fashion is growing exponentially with consistent year-over-year growth expected through 2030.</p>
+                    <div style="display: grid; gap: 12px;">
+                        <div style="background: var(--bg-card-2); padding: 16px; border-radius: 12px; border-left: 3px solid var(--accent);">
+                            <div style="font-size: 24px; font-weight: 800; color: var(--accent);">6.8-9.1%</div>
+                            <div style="font-size: 13px; color: var(--text-dim);">Annual Growth Rate (2023-2030)</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 16px;">🎯 Target Market</h4>
+                    <div style="display: grid; gap: 10px;">
+                        <div style="background: var(--bg-card-2); padding: 12px 16px; border-radius: 8px;">
+                            <strong style="color: var(--text);">Age:</strong> <span style="color: var(--text-dim);">18-45 years old</span>
+                        </div>
+                        <div style="background: var(--bg-card-2); padding: 12px 16px; border-radius: 8px;">
+                            <strong style="color: var(--text);">Income:</strong> <span style="color: var(--text-dim);">Middle to upper-middle class</span>
+                        </div>
+                        <div style="background: var(--bg-card-2); padding: 12px 16px; border-radius: 8px;">
+                            <strong style="color: var(--text);">Values:</strong> <span style="color: var(--text-dim);">Environmentally conscious, fashion-forward</span>
+                        </div>
+                        <div style="background: var(--bg-card-2); padding: 12px 16px; border-radius: 8px;">
+                            <strong style="color: var(--text);">Behavior:</strong> <span style="color: var(--text-dim);">Research before buying, prefer quality over quantity</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Revenue Model Section -->
+        <div class="section-header">
+            <span class="section-eyebrow">Revenue Streams</span>
+            <h2 class="section-title">
+                Built for <span class="accent">scalable growth.</span>
+            </h2>
+        </div>
+
+        <div class="project-card">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 900px; margin: 0 auto;">
+                <!-- Row 1: D2C and Export -->
+                <div class="metric-card" style="background: linear-gradient(135deg, rgba(132, 204, 22, 0.1) 0%, rgba(34, 197, 94, 0.05) 100%); border: 1px solid rgba(132, 204, 22, 0.3);">
+                    <h4>🛍️ Direct-to-Consumer (D2C)</h4>
+                    <ul>
+                        <li>E-commerce platform for direct sales</li>
+                        <li>Pop-up events and offline exhibitions</li>
+                        <li>Curated sustainable fashion marketplaces</li>
+                        <li>Building brand loyalty and community</li>
+                    </ul>
+                </div>
+
+                <div class="metric-card" style="background: linear-gradient(135deg, rgba(251, 146, 60, 0.1) 0%, rgba(252, 211, 77, 0.05) 100%); border: 1px solid rgba(251, 146, 60, 0.3);">
+                    <h4>🌏 Export Market</h4>
+                    <ul>
+                        <li>Direct exports of home furnishing segment</li>
+                        <li>International sustainable fashion retailers</li>
+                        <li>Leveraging existing trade channels</li>
+                        <li>Premium positioning in global markets</li>
+                    </ul>
+                </div>
+
+                <!-- Row 2: B2B centered -->
+                <div class="metric-card" style="grid-column: 1 / -1; max-width: 440px; margin: 0 auto; width: 100%; background: linear-gradient(135deg, rgba(96, 165, 250, 0.1) 0%, rgba(147, 197, 253, 0.05) 100%); border: 1px solid rgba(96, 165, 250, 0.3);">
+                    <h4>🤝 B2B Collaborations</h4>
+                    <ul>
+                        <li>Brand partnerships and co-creation</li>
+                        <li>Strategic collaborations with aligned labels</li>
+                        <li>White-label sustainable product lines</li>
+                        <li>Joint marketing and awareness campaigns</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Section -->
+        <div class="section-header">
+            <span class="section-eyebrow">Leadership</span>
+            <h2 class="section-title">
+                The team <span class="accent">driving change.</span>
+            </h2>
+        </div>
+
+        <div class="project-card">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+                <div style="background: var(--bg-card-2); padding: 28px; border-radius: 16px; border: 1px solid var(--border);">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: #0a0a0a;">A</div>
+                        <div>
+                            <h4 style="margin: 0;">Ashwajeet Singh</h4>
+                            <div style="color: var(--accent); font-size: 13px; font-weight: 600;">Founder</div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-dim); font-size: 14px; line-height: 1.6;">
+                        Advanced business degree with diverse experience across multiple sectors. Brings comprehensive understanding of business strategy, operations, and market dynamics. Passionate about sustainability and challenging the status quo in fashion. Leading Dejunk's mission to transform textile waste into stylish, sustainable products while creating meaningful social impact.
+                    </p>
+                </div>
+
+                <div style="background: var(--bg-card-2); padding: 28px; border-radius: 16px; border: 1px solid var(--border);">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: #0a0a0a;">G</div>
+                        <div>
+                            <h4 style="margin: 0;">Gurpreet</h4>
+                            <div style="color: var(--accent); font-size: 13px; font-weight: 600;">Co-Founder</div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-dim); font-size: 14px; line-height: 1.6;">
+                        Company Secretary with strong expertise in legal compliance, corporate governance, and startup operations. Critical role in navigating complexities of building a sustainable fashion brand. Ensures solid legal and operational foundation essential for growth and long-term success. Committed to leveraging expertise to help Dejunk scale its impact.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="section-header">
+            <span class="section-eyebrow">Growth Strategy</span>
+            <h2 class="section-title">
+                How we'll <span class="accent">scale impact.</span>
+            </h2>
+        </div>
+
+        <div class="skills-bento">
+            <!-- Scaling Roadmap -->
+            <div class="skills-chart-card">
+                <h4>🚀 Scaling Roadmap</h4>
+                <div style="padding: 20px;">
+                    <div style="margin-bottom: 24px;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: #ffffff;">1</div>
+                            <div>
+                                <div style="font-weight: 700; color: var(--text);">Digital Expansion</div>
+                                <div style="font-size: 13px; color: var(--text-dim);">E-commerce launch & social media growth</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 24px;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: #ffffff;">2</div>
+                            <div>
+                                <div style="font-weight: 700; color: var(--text);">Production Scaling</div>
+                                <div style="font-size: 13px; color: var(--text-dim);">Expand across mapped manufacturing clusters</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 24px;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: #ffffff;">3</div>
+                            <div>
+                                <div style="font-weight: 700; color: var(--text);">Strategic Partnerships</div>
+                                <div style="font-size: 13px; color: var(--text-dim);">Brand collaborations & export channels</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 24px;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: #ffffff;">4</div>
+                            <div>
+                                <div style="font-weight: 700; color: var(--text);">R&D Innovation</div>
+                                <div style="font-size: 13px; color: var(--text-dim);">Continuous process refinement & product expansion</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: #ffffff;">5</div>
+                            <div>
+                                <div style="font-weight: 700; color: var(--text);">AI & Tech Integration</div>
+                                <div style="font-size: 13px; color: var(--text-dim);">Leveraging AI tools for design, inventory, and supply chain optimization</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Capabilities -->
+            <div class="skill-categories">
+                <div class="skill-cat-card">
+                    <div class="icon">💡</div>
+                    <h5>Innovation Engine</h5>
+                    <p>Proprietary waterless upcycling process, tech-driven supply chain, continuous R&D investment</p>
+                </div>
+                <div class="skill-cat-card">
+                    <div class="icon">🏭</div>
+                    <h5>Scalable Operations</h5>
+                    <p>Mapped manufacturing clusters, established supplier networks, small-batch to mass production capability</p>
+                </div>
+                <div class="skill-cat-card">
+                    <div class="icon">🌍</div>
+                    <h5>Market Positioning</h5>
+                    <p>Affordable pricing, quality assurance protocols, transparent circular model, community-driven brand</p>
+                </div>
+                <div class="skill-cat-card">
+                    <div class="icon">📈</div>
+                    <h5>Growth Levers</h5>
+                    <p>Multi-channel revenue model, strategic B2B partnerships, export market access, digital-first approach</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Awards -->
+        <div class="section-header">
+            <span class="section-eyebrow">Recognition</span>
+            <h2 class="section-title">
+                The <span class="accent">trophies</span> shelf.
+            </h2>
+            <p class="section-description">
+                Recognized and registered upcycling manufacturer by the Ministry of Textiles, Government of India
+            </p>
+        </div>
+
+        <div class="awards-hero">
+            <!-- Award Badge Visual -->
+            <div style="position: absolute; right: 40px; top: 40px; width: 180px; height: 180px; opacity: 0.15;">
+                <svg viewBox="0 0 200 200" style="width: 100%; height: 100%;">
+                    <!-- Award badge -->
+                    <circle cx="100" cy="80" r="50" fill="#ffffff" stroke="currentColor" stroke-width="4"/>
+                    <text x="100" y="95" text-anchor="middle" font-size="50" fill="currentColor">🏆</text>
+                    
+                    <!-- Ribbons -->
+                    <path d="M 80,120 L 70,180 L 85,165 L 100,175 L 115,165 L 130,180 L 120,120" fill="currentColor" opacity="0.8"/>
+                    
+                    <!-- Stars -->
+                    <text x="50" y="60" font-size="20" fill="currentColor">★</text>
+                    <text x="145" y="60" font-size="20" fill="currentColor">★</text>
+                    <text x="100" y="30" font-size="20" fill="currentColor">★</text>
+                </svg>
+            </div>
+            
+            <div class="award-eyebrow">🏆 National Award</div>
+            <h3>Textile Innovation Challenge Winner</h3>
+            <div class="award-org">Ministry of Textiles, Government of India</div>
+            <p>Recognized nationally for building India's first waterless, chemical-free textile upcycling model. Selected from a nationwide competition for innovation in sustainable manufacturing. The award came with policy advocacy opportunities and recognition at industry forums.</p>
+        </div>
+
+        <!-- Footer CTA -->
+        <div class="footer-cta">
+            <h3>Let's build something <span class="accent">sustainable</span> together.</h3>
+            <p>Interested in partnering, investing, or scaling circular fashion? We'd love to chat.</p>
+
+            <div class="contact-grid">
+                <a href="mailto:dejunk.studio@gmail.com" class="contact-card">
+                    <div class="icon">✉️</div>
+                    <div class="label">Email</div>
+                    <div class="value">dejunk.studio<br>@gmail.com</div>
+                </a>
+                <a href="tel:+919811927865" class="contact-card">
+                    <div class="icon">📱</div>
+                    <div class="label">Phone</div>
+                    <div class="value">+91 98119 27865</div>
+                </a>
+                <a href="https://linkedin.com/company/dejunk" class="contact-card">
+                    <div class="icon">💼</div>
+                    <div class="label">LinkedIn</div>
+                    <div class="value">company/dejunk</div>
+                </a>
+                <div class="contact-card">
+                    <div class="icon">📍</div>
+                    <div class="label">Based In</div>
+                    <div class="value">Delhi, India</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Common chart options for light theme
+        Chart.defaults.color = '#495057';
+        Chart.defaults.borderColor = 'rgba(0,0,0,0.1)';
+
+        // Impact Chart - Doughnut
+        const impactCtx = document.getElementById('impactChart').getContext('2d');
+        new Chart(impactCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Waste Diverted', 'Water Saved', 'Chemical-Free'],
+                datasets: [{
+                    data: [40, 35, 25],
+                    backgroundColor: ['#84cc16', '#60a5fa', '#fb923c'],
+                    borderWidth: 0,
+                    cutout: '70%'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { padding: 15, font: { size: 12, family: 'Inter' }, usePointStyle: true, pointStyle: 'circle' }
+                    }
+                }
+            }
+        });
+
+        // Growth Chart - Line
+        const growthCtx = document.getElementById('growthChart').getContext('2d');
+        new Chart(growthCtx, {
+            type: 'line',
+            data: {
+                labels: ['Year 1', 'Year 2', 'Year 3', 'Now'],
+                datasets: [{
+                    label: 'Waste Diverted (kg)',
+                    data: [3000, 7500, 12000, 15000],
+                    borderColor: '#84cc16',
+                    backgroundColor: 'rgba(132, 204, 22, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: '#84cc16',
+                    pointBorderColor: '#0a0a0a',
+                    pointBorderWidth: 3,
+                    pointRadius: 6,
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(0,0,0,0.05)' },
+                        ticks: { 
+                            callback: value => (value/1000) + 'K kg',
+                            font: { family: 'Inter' }
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { family: 'Inter', weight: '600' } }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
